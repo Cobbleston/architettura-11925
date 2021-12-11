@@ -1,0 +1,17 @@
+Es 1.
+RAM[2] = RAM[1] –RAM[0] - 2
+
+Es 2.
+RAM[2] = RAM[1] nand RAM[0]
+//nand bit a bit
+
+Es 3.
+RAM[RAM[0],...,RAM[1]] = 1,...,1
+// assumendo RAM[1] > RAM[0] > 1
+
+Es 4.
+RAM[2] = RAM[1] * (2^RAM[0])
+
+Es 5.
+RAM[2] = RAM[1] / RAM[0], RAM[3] = RAM[1] mod RAM[0]
+// divisione intera
