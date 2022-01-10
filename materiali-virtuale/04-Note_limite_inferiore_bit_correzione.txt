@@ -1,0 +1,42 @@
+m (es 8) bit di dato
+vogliamo correggere 1 errore
+
+abbiamo 2^m parole di dati possibili (es 2^8 = 256)
+
+quanti bit in piu' ci servono?  r, da calcolare
+
+2^m parole di codice corrette
+
+2^m (m+r) parole che posso ottenere da una corretta sbagliando un solo bit
+
+Voglio che siano tutte diverse altrimenti non so da dove arrivo
+(se so da dove arrivo riesco a correggere l'errore)
+
+Quindi voglio avere abbastanza parole diverse su m+r bit, che sono 2^(m+r)
+
+Ottengo:
+
+2^m (1 + m + r) <= 2^(m+r)
+
+Semplifico con le proprieta' delle potenze
+
+1 + m + r <= 2^r
+
+Non so risolvere analiticamente questa disuguaglianza
+
+Faccio un caso particolare
+
+Caso particolare di quella di sopra con m = 8
+
+9 + r <= 2^r
+
+Vado a tentativi per trovare il minimo r intero che soddisfa
+
+r = 1: 10 <= 2 NO
+r = 2: 11 <= 4 NO
+r = 3: 12 <= 8 NO
+r = 4: 13 <= 16 SI'
+
+Cosa imparo: con meno di 4 bit NON POSSO correggere un errore su dati di 8 bit
+Con 4 o piu' bit, forse
+(Vedremo che in effetti ci si riesce, usando il codice di Hamming)

@@ -1,0 +1,74 @@
+Si consideri una direct mapped cache con 8 linee di cache, ognuna da
+16 parole, inizialmente vuota. Si mostri come cambia il contenuto
+della cache con l'esecuzione di accessi alle seguenti locazioni:
+
+locazione 12
+locazione 14
+locazione 22
+locazione 130
+locazione 24
+locazione 13
+--------------------------------------------------------------------------------
+Gli indirizzi vanno divisiin 4 bit offset dentro data (per indirizzare
+16 parole), 3 bit linea (per indirizzare 8 linee) e il resto (ad
+esempio 3 bit) tag
+
+locazione 12
+
+000 000 1100
+
+-Vado alla riga 000
+-Valid e' false => cache miss (vado in RAM a leggere il blocco di memoria 0 - 15)
+-Alla riga 000 metto il flag Valid a true e nel campo Data i valori letti dalla
+ RAM e nel campo Tag metto 000
+
+14
+
+000 000 1110
+
+-Vado alla riga 000
+-Valid e' true
+-Confronto il tag della riga 000 (che vale 000) con quello dell'indirizzo (000)
+-Sono uguali => cache hit (perche' la riga 000 contiene dati dalla posizione 0 alla posizione 15, che include 14)
+-Mando il dato in posizione 1110 alla CPU
+
+22
+
+000 001 0110
+
+-Vado alla riga 001
+-Valid e' false => cache miss (vado in RAM a leggere il blocco di memoria 16 - 31)
+-Alla riga 001 metto il flag Valid a true e nel campo Data i valori letti dalla
+ RAM e nel campo Tag metto 000
+
+130
+
+001 000 0010
+
+-Vado alla riga 000
+-Valid e' true
+-Confronto il tag della riga 000 (che vale 000) con quello dell'indirizzo (001)
+-Sono diversi => cache miss (vado in RAM a leggere il blocco di memoria 128 - 143)
+-Alla riga 000 sovrascrivo il campo Data con i valori letti dalla
+ RAM e sovrascrivo il campo Tag con 001
+
+24
+
+000 001 1000
+
+-Vado alla riga 001
+-Valid e' true
+-Confronto il tag della riga 001 (che vale 000) con quello dell'indirizzo (000)
+-Sono uguali => cache hit (perche' la riga 000 contiene dati dalla posizione 16 alla posizione 31, che contiene 24)
+-Mando il dato in posizione 1000 alla CPU
+
+13
+
+000 000 1101
+
+-Vado alla riga 000
+-Valid e' true
+-Confronto il tag della riga 000 (che vale 001) con quello dell'indirizzo (000)
+-Sono diversi => cache miss (vado in RAM a leggere il blocco di memoria 0 - 15)
+-Alla riga 000 sovrascrivo il campo Data con i valori letti dalla
+ RAM e sovrascrivo il campo Tag con 000

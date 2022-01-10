@@ -1,0 +1,29 @@
+Vogliamo accedere alla locazione 34 in una cache con campo data da 16
+parole e 8 linee di cache. Assumo indirizzi di memoria su 10 bit.
+
+34
+
+Lo scrivo in binario e lo spezzo come descritto sotto. 
+
+000 010 0010
+
+campo data da 16 parole => 4 bit meno significativi per l'offset dentro data 0010
+8 linee di cache => 3 bit successivi per indirizzare la linea  010
+tutto il resto e' il tag: 000
+
+Come accedo:
+
+Vado alla riga 010
+Se valid e' falso => cache miss, fine (vado in RAM)
+Se valid e' vero
+Confronto il tag della riga 010 con quello dell'indirizzo (000)
+Se sono diversi => cache miss, fine (vado in RAM)
+Se sono uguali => cache hit, fine (mando il dato in posizione 0010 alla CPU)
+
+In caso di cache miss prendo dalla RAM tutto il blocco che contiene
+l'indirizzo (indirizzi da 000 010 0000 a 000 010 1111) e lo scrivo nel
+campo data della riga considerata (riga 010)
+Metto il tag della stessa riga al valore dell'indirizzo al quale sto accedendo (000 010 0010, quindi tag 000)
+Metto valid della stessa riga a vero
+
+In contemporanea mando alla CPU il calore richiesto

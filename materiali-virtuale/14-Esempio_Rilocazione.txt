@@ -1,0 +1,35 @@
+Supponiamo di avere un programma composto dai 2 moduli seguenti:
+
+Modulo A 400 loc
+Diz di rilocaz: 20
+Tab rif esterni: 50 -> DELETE
+
+ADD AX,BX
+JMP 200       20
+...
+CALL x        50
+...
+
+
+MODULO B 300 loc
+Tabella dei punti di ingresso: DELETE -> 100
+
+...
+     100
+...
+
+
+Caricando prima B e poi A abbiamo i seguenti indirizzi iniziali:
+
+MODULO B  0
+MODULO A  300
+
+Applicando la rilocazione e collegando i collegamenti ad altri moduli otteniamo:
+
+...
+...
+ADD AX,BX
+JMP 200 -> JMP 500
+...
+CALL x -> CALL 100
+...

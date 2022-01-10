@@ -1,0 +1,10 @@
+Si consideri una direct mapped cache con 8 linee di cache, ognuna da
+16 parole, inizialmente vuota. Si mostri come cambia il contenuto
+della cache con l'esecuzione di accessi alle seguenti locazioni:
+
+locazione 12
+locazione 14
+locazione 22
+locazione 130
+locazione 24
+locazione 13

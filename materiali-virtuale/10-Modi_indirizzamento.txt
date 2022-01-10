@@ -1,0 +1,54 @@
+I modi di indirizzamento in assembler stile IBM fanno riferimento al
+secondo operando, AX e' sempre in indirizzamento a registro
+
+Indirizzamento immediato
+
+@5         // HACK
+
+ADD AX, 5  // AX = AX + 5
+
+Indirizzamento diretto
+
+// non c'e' in HACK
+
+ADD AX, [5]  // AX = AX + RAM[5]
+
+Indirizzamento a registro
+
+D = D + A    // HACK
+
+ADD AX, BX   // AX = AX + BX
+
+Indirizzamento a registro indiretto
+
+D = D + M     // HACK: D = D + RAM[A]         
+
+ADD AX, [BX]  // AX = AX + RAM[BX]
+
+Indirizzamento indicizzato
+
+// non c'e' in HACK
+
+ADD AX, [5+BX]
+
+Usato negli array
+
+a[i] = 5 // assumiamo un elemento occupa una word
+a inizia in locazione 20
+i sia nel registro BX
+
+MOV [20+BX], 5
+
+Indirizzamento a stack (pila)
+
+// non c'e' in HACK
+
+Usato per chiamate di procedura (e non solo)
+
+BP (base pointer): inizio dello stack
+SP (stack pointer): cima dello stack
+
+PUSH AX   // RAM[SP] = AX; SP ++
+POP AX    // SP --; AX = RAM[SP]
+
+SP e' indirizzato a stack in modo implicito

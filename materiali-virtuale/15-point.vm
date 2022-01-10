@@ -1,0 +1,186 @@
+// consente di muovere un punto sullo schermo usando i tasti freccia
+// that 0 contiene il valore nella locazione di indirizzo pointer 1
+// fatto per essere usato con no animation
+
+call point.main 0
+
+function point.main 3	//local: currentPos, oldPos, word
+push constant 1
+pop local 2		//parte dal primo pixel della word
+push constant 16384  	//SCREEN
+pop local 0   		//parte da angolo in alto a sinistra
+push local 0
+push local 2
+call point.draw 2
+pop local 1
+label loop
+call point.sleep 0	//rallenta il programma
+pop pointer 1     	//scarta risultato sleep
+push constant 24576   	//KBD
+pop pointer 1
+push that 0		//case sul tasto premuto
+push constant 130   	//freccia a sinistra
+eq
+if-goto left
+push that 0
+push constant 132	//freccia a destra
+eq
+if-goto right
+push that 0
+push constant 131	//freccia su
+eq
+if-goto up
+push that 0
+push constant 133	//freccia giu
+eq
+if-goto down
+goto loop
+label left
+push local 2
+push constant 1
+eq
+if-goto reset		//salta se a inizio word
+push local 2		//sposta dentro la word
+call point.split 1
+pop local 2
+goto contLeft
+label reset		//riparte da fine word precedente
+push constant 16384
+push local 0
+eq
+if-goto loop		//se a inizio schermo non fa nulla
+push constant 16384
+pop local 2		//ultimo pixel della parola
+push local 0
+call point.dec 1
+pop local 0
+label contLeft
+push local 0
+push local 2
+call point.draw 2
+goto merge
+label right
+push local 2
+push constant 16384
+eq
+if-goto resetRight	//salta se a fine word
+push local 2		//sposta dentro la word
+push local 2
+add
+pop local 2
+goto contRight
+label resetRight	//riparte da inizio word successiva
+push constant 24575
+push local 0
+eq
+if-goto loop		//se a fine schermo non fa nulla
+push constant 1
+pop local 2
+push local 0
+call point.inc 1
+pop local 0
+label contRight
+push local 0
+push local 2
+call point.draw 2
+label merge
+pop local 0
+push local 1
+push local 0
+eq
+if-goto loop
+push local 1
+call point.delete 1
+pop local 1		//butto via il risultato di delete
+push local 0
+pop local 1
+goto loop
+label up
+push constant 16416
+push local 0
+gt
+if-goto loop		//se su prima riga non fa nulla
+push local 0
+push constant 32
+sub
+push local 2
+call point.draw 2
+goto merge
+label down
+push constant 24543
+push local 0
+lt
+if-goto loop		//se su ultima riga non fa nulla
+push local 0
+push constant 32
+add
+push local 2
+call point.draw 2
+goto merge
+
+//mette il valore argument 1 nella locazione argument 0
+function point.draw 1
+  push argument 0
+  pop pointer 1
+  push argument 1
+  pop that 0
+  push pointer 1
+return
+
+//mette il valore 0 nella locazione argument 0
+function point.delete 1
+  push argument 0
+  pop pointer 1
+  push constant 0
+  pop that 0
+  push pointer 1
+return
+
+// incrementa di 1 l'argomento
+function point.inc 0
+  push argument 0
+  push constant 1
+  add
+return
+
+// decrementa di 1 l'argomento
+function point.dec 0
+  push argument 0
+  push constant 1
+  sub
+return
+
+// rallenta l'esecuzione
+function point.sleep 1
+  push constant 6000  //piu' grande il valore piu' rallenta
+  pop local 0
+label begin
+  push local 0
+  push constant 1
+  sub
+  pop local 0
+  push local 0
+  if-goto begin
+  push constant 0
+return
+
+// divide l'argomento per 2
+function point.split 1
+  push constant 1
+  pop local 0
+label retry
+  push local 0
+  push local 0
+  add
+  push argument 0
+  lt
+  not
+  if-goto end
+  push local 0
+  push local 0
+  add
+  pop local 0
+  goto retry
+label end
+  push local 0
+return

@@ -1,0 +1,10 @@
+Codificare in linguaggio macchina le seguenti istruzioni HACK:
+@12
+D=M+1
+!D;JGT
+
+Scrivere un programma hack che traccia sullo schermo una linea
+diagonale (a 45 gradi) che parte dall'angolo in alto a sinistra lunga
+50 pixel.
+
+

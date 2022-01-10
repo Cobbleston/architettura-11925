@@ -1,0 +1,5 @@
+Nello svolgimento dei progetti relativi alla virtual machine, per quel che riguarda il segmento static, usare la gestione specificata nelle slide (e compatibile con i test) e NON quella usata dal VMEmulator.
+
+Nello svolgimento del progetto VM (la cosa non si applica al bonus) non vanno considerati i segmenti THIS, THAT, POINTER e TEMP. Tuttavia nel record di attivazione delle funzioni e' necessario lasciare 2 locazioni per THIS e THAT (i valori di quelle locazioni non saranno significativi).
+
+Quando si esegue un programma VM sul VMEmulator e' necessario prima settare manualmente i puntatori ai vari segmenti, altrimenti si potrebbe ottenere un errore del tipo "Out of segment space". Per capire i settaggi necessari guardare cosa fa il corrispondente file .tst. Un metodo alternativo e' quello di inserire il codice proposto all'interno di una funzione, visto che la chiamata di funzione fa automaticamente questo tipo di settaggi.
